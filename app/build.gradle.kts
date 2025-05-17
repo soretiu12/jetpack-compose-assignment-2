@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt") // Needed for Room
+    id("kotlin-kapt")
 }
 
 android {
@@ -44,41 +44,42 @@ android {
 }
 
 dependencies {
-    // AndroidX Core, Lifecycle, Activity Compose
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation("androidx.compose.material:material:1.5.4")
 
-    // Compose BOM and UI
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    // Retrofit and Gson Converter
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 
-    // Room components
+
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
 
-    // Kotlin Coroutines for Android
+
     implementation(libs.kotlinx.coroutines.android)
 
-    // Navigation Compose (explicit version, as it’s not in version catalog)
+
     implementation("androidx.navigation:navigation-compose:2.9.0")
 
-    // Testing libraries
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
-    // Debug utilities
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

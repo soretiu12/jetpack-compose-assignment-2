@@ -1,3 +1,5 @@
+
+
 package com.example.todoapp.viewmodel
 
 import androidx.lifecycle.ViewModel
@@ -8,35 +10,26 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class TodoListViewModel(private val repository: TodoRepository) : ViewModel() {
-    private val _todos = MutableStateFlow<List<Todo>>(emptyList())
-    val todos: StateFlow<List<Todo>> = _todos
+class TodoDetailViewModel(private val repository: TodoRepository) : ViewModel() {
+    private val _todo = MutableStateFlow<Todo?>(null)
+    val todo: StateFlow<Todo?> = _todo
 
-    private val _isLoading = MutableStateFlow(true)
+    private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
-    init {
+    fun loadTodo(id: Int) {
         viewModelScope.launch {
-            repository.todos.collect {
-                _todos.value = it
-            }
-        }
+            _isLoading.value = true
+            _errorMessage.value = null
 
-        refreshTodos()
-    }
-
-
-    fun refreshTodos() {
-        viewModelScope.launch {
             try {
-                _isLoading.value = true
-                _errorMessage.value = null // Clear any previous errors
-                repository.refreshTodos()
+                val todo = repository.getTodoById(id)
+                _todo.value = todo
             } catch (e: Exception) {
-                _errorMessage.value = "Failed to load todos: ${e.message}"
+                _errorMessage.value = "Failed to load todo details: ${e.message}"
             } finally {
                 _isLoading.value = false
             }

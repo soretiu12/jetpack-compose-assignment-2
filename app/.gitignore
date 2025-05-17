@@ -1,1 +1,39 @@
-/build
+# Gradle
+.gradle/
+build/
+
+# Local properties
+local.properties
+
+# Android Studio
+.idea/
+*.iml
+*.ipr
+
+# Log and temp files
+*.log
+.DS_Store
+Thumbs.db
+
+# Kotlin/Java/Compose
+*.class
+*.jar
+*.apk
+*.ap_
+*.dex
+*.caches/
+
+# Captures and emulator
+captures/
+output.json
+*.hprof
+
+# Version Catalog generated lock
+*.toml.lock
+
+# Jetpack Compose preview cache
+.compose-cache/
+
+# Other system junk
+*.swp
+*.swo
